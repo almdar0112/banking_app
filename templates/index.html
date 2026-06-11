@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+{% block title %}الرئيسية{% endblock %}
+
+{% block content %}
+<style>
+    .landing-page {
+        font-family: 'Cairo', sans-serif;
+        background: linear-gradient(180deg, #fff 0%, #f5f5f5 100%);
+        min-height: 100vh;
+    }
+
+    /* Header */
+    .landing-header {
+        height: 70px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .landing-logo {
+        font-size: 24px;
+        font-weight: 800;
+        color: #d50000;
+    }
+
+    .lang-btn {
+        border: 1px solid #e0e0e0;
+        background: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        text-align: center;
+        padding: 40px 20px 20px;
+    }
+
+    .hero-icon {
+        width: 90px;
+        height: 90px;
+        background: linear-gradient(135deg, #d50000, #b71c1c);
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        box-shadow: 0 12px 32px rgba(213, 0, 0, 0.3);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    .hero-icon i {
+        font-size: 42px;
+        color: white;
+    }
+
+    .hero-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+        font-size: 15px;
+        color: #757575;
+        margin-bottom: 4px;
+        line-height: 1.6;
+    }
+
+    /* Features */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 20px 16px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px 12px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-size: 20px;
+    }
+
+    .feature-icon.red { background: #ffebee; color: #d50000; }
+    .feature-icon.blue { background: #e3f2fd; color: #1976d2; }
+    .feature-icon.green { background: #e8f5e9; color: #388e3c; }
+
+    .feature-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 4px;
+    }
+
+    .feature-desc {
+        font-size: 11px;
+        color: #999;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        padding: 20px 16px;
+        max-width: 400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 16px;
+        background: #d50000;
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: 'Cairo', sans-serif;
+        text-decoration: none;
+        text-align: center;
+        display: block;
+        box-shadow: 0 4px 12px rgba(213, 0, 0, 0.3);
+        transition: all 0.2s;
+    }
+
+    .btn-primary:active {
+        background: #b71c1c;
+        transform: scale(0.97);
+    }
+
+    .btn-outline {
+        width: 100%;
+        padding: 16px;
+        background: white;
+        color: #d50000;
+        border: 2px solid #d50000;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: 'Cairo', sans-serif;
+        text-decoration: none;
+        text-align: center;
+        display: block;
+        transition: all 0.2s;
+    }
+
+    .btn-outline:active {
+        background: #ffebee;
+        transform: scale(0.97);
+    }
+
+    /* Info Section */
+    .info-section {
+        padding: 24px 16px;
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .info-text {
+        font-size: 12px;
+        color: #999;
+        line-height: 1.8;
+    }
+
+    .info-text a {
+        color: #d50000;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    /* Bottom */
+    .landing-footer {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .help-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #757575;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .help-link i {
+        color: #d50000;
+    }
+</style>
+
+<div class="landing-page">
+
+    <!-- Header -->
+    <header class="landing-header">
+        <span class="landing-logo">مراد بنك</span>
+        <button class="lang-btn">English</button>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero-section">
+        <div class="hero-icon">
+            <i class="fas fa-university"></i>
+        </div>
+        <h1 class="hero-title">مراد بنك</h1>
+        <p class="hero-subtitle">تطبيقك المصرفي الآمن</p>
+        <p class="hero-subtitle">لإدارة أموالك بكل سهولة</p>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon red">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <p class="feature-title">أمان عالي</p>
+            <p class="feature-desc">حماية كاملة لبياناتك</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon blue">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <p class="feature-title">تحويل فوري</p>
+            <p class="feature-desc">معاملات لحظية</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon green">
+                <i class="fas fa-headset"></i>
+            </div>
+            <p class="feature-title">دعم متواصل</p>
+            <p class="feature-desc">خدمة 24/7</p>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="action-buttons">
+        <a href="/login" class="btn-primary">
+            <i class="fas fa-sign-in-alt me-2"></i>
+            تسجيل الدخول
+        </a>
+        <a href="/register" class="btn-outline">
+            <i class="fas fa-user-plus me-2"></i>
+            فتح حساب جديد
+        </a>
+    </div>
+
+    <!-- Info -->
+    <div class="info-section">
+        <p class="info-text">
+            ليس لديك حساب؟ <a href="/register">افتح حساب الآن</a>
+        </p>
+        <p class="info-text">
+            تطبيق مصرفي آمن ومجاني
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="landing-footer">
+        <a href="#" class="help-link">
+            <i class="fas fa-headset"></i>
+            <span>تواصل معنا</span>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

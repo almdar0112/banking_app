@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+
+{% block title %}تم التحويل بنجاح{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --green-dark: #1F8E1F;
+        --green: #2BAE2B;
+        --green-light: #4CAF50;
+        --white: #ffffff;
+        --text-dark: #1a1a1a;
+        --text-gray: #757575;
+        --border: rgba(255,255,255,0.3);
+        --shadow: 0 8px 32px rgba(0,0,0,0.1);
+        --radius: 16px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Cairo', sans-serif;
+        direction: rtl;
+    }
+
+    .success-page {
+        min-height: 100vh;
+        background: linear-gradient(180deg, #2BAE2B 0%, #1F8E1F 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 80px;
+    }
+
+    /* Success Icon */
+    .success-icon-container {
+        margin-top: 40px;
+        width: 100px;
+        height: 100px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .success-icon-inner {
+        width: 72px;
+        height: 72px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .success-icon-inner i {
+        font-size: 36px;
+        color: #2BAE2B;
+        animation: checkmark 0.4s ease 0.3s both;
+    }
+
+    @keyframes scaleIn {
+        0% { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes checkmark {
+        0% { transform: scale(0); }
+        100% { transform: scale(1); }
+    }
+
+    /* Title */
+    .success-title {
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+        margin: 20px 0 4px;
+        text-align: center;
+    }
+
+    .success-subtitle {
+        color: rgba(255,255,255,0.8);
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    /* Details Card */
+    .details-card {
+        width: 90%;
+        max-width: 400px;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        box-shadow: var(--shadow);
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+
+    .detail-label {
+        font-size: 13px;
+        color: rgba(255,255,255,0.8);
+        font-weight: 500;
+    }
+
+    .detail-value {
+        font-size: 14px;
+        color: white;
+        font-weight: 700;
+        text-align: left;
+    }
+
+    .detail-value.amount {
+        font-size: 22px;
+        font-weight: 800;
+        color: #FFD700;
+    }
+
+    .detail-value.highlight {
+        background: rgba(255,255,255,0.2);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+    }
+
+    /* Confirm Button */
+    .confirm-btn {
+        width: 90%;
+        max-width: 400px;
+        margin-top: 24px;
+        padding: 16px;
+        background: white;
+        color: #1F8E1F;
+        border: none;
+        border-radius: 14px;
+        font-size: 18px;
+        font-weight: 700;
+        font-family: 'Cairo', sans-serif;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        transition: all 0.2s;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+    }
+
+    .confirm-btn:active {
+        transform: scale(0.97);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Bottom Nav */
+    .success-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: rgba(0,0,0,0.2);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-action {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        background: none;
+        border: none;
+        color: white;
+        font-family: 'Cairo', sans-serif;
+        font-size: 11px;
+        cursor: pointer;
+        padding: 8px 16px;
+        border-radius: 12px;
+        transition: all 0.2s;
+        text-decoration: none;
+    }
+
+    .nav-action:active {
+        background: rgba(255,255,255,0.15);
+    }
+
+    .nav-action i {
+        font-size: 20px;
+    }
+
+    /* Sparkles */
+    .sparkles {
+        position: fixed;
+        pointer-events: none;
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        animation: sparkle 1.5s ease infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1) rotate(180deg); }
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+        .details-card {
+            padding: 28px;
+        }
+        .detail-row {
+            padding: 18px 0;
+        }
+    }
+</style>
+
+<div class="success-page">
+
+    <!-- Success Icon -->
+    <div class="success-icon-container">
+        <div class="success-icon-inner">
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+
+    <!-- Title -->
+    <h1 class="success-title">تم التحويل بنجاح</h1>
+    <p class="success-subtitle">تمت العملية بنجاح</p>
+
+    <!-- Details Card -->
+    <div class="details-card">
+        
+        <div class="detail-row">
+            <span class="detail-label">رقم العملية</span>
+            <span class="detail-value highlight">{{ transaction_id }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">التاريخ والوقت</span>
+            <span class="detail-value">{{ transaction_date }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">من حساب</span>
+            <span class="detail-value">{{ sender_account }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">إلى حساب</span>
+            <span class="detail-value">{{ receiver_account }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">اسم المستلم</span>
+            <span class="detail-value">{{ receiver_name }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">رقم الهاتف</span>
+            <span class="detail-value">+249 {{ receiver_phone }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">المبلغ</span>
+            <span class="detail-value amount">{{ amount }} ج.م</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">التعليق</span>
+            <span class="detail-value">{{ comment }}</span>
+        </div>
+
+    </div>
+
+    <!-- Confirm Button -->
+    <a href="/dashboard" class="confirm-btn">
+        <i class="fas fa-check-circle me-2"></i>
+        تم
+    </a>
+
+    <!-- Bottom Navigation -->
+    <nav class="success-nav">
+        <button class="nav-action" onclick="shareTransaction()">
+            <i class="fas fa-share-alt"></i>
+            <span>مشاركة</span>
+        </button>
+        <button class="nav-action" onclick="downloadReceipt()">
+            <i class="fas fa-download"></i>
+            <span>تحميل</span>
+        </button>
+        <button class="nav-action" onclick="printReceipt()">
+            <i class="fas fa-print"></i>
+            <span>طباعة</span>
+        </button>
+    </nav>
+
+</div>
+
+<script>
+    function shareTransaction() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'إيصال تحويل - مراد بنك',
+                text: 'تم تحويل {{ amount }} ج.م إلى {{ receiver_name }}\nرقم العملية: {{ transaction_id }}',
+            });
+        } else {
+            alert('تم نسخ التفاصيل للمشاركة');
+        }
+    }
+
+    function downloadReceipt() {
+        alert('جاري تحميل الإيصال...');
+    }
+
+    function printReceipt() {
+        window.print();
+    }
+</script>
+
+{% endblock %}

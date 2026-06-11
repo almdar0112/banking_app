@@ -1,0 +1,291 @@
+/* ============================================
+   BANKKAK LOGIN - Sudanese Banking App
+   ============================================ */
+
+.bankak-login {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background: #fafafa;
+    min-height: 100vh;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+/* ============ HEADER ============ */
+.login-header {
+    height: 70px;
+    background: #d50000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(213, 0, 0, 0.2);
+}
+
+.login-header .header-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.login-header .logo-ar {
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.login-header .logo-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    text-transform: lowercase;
+}
+
+/* ============ LOGO SECTION ============ */
+.login-logo-section {
+    padding: 40px 20px 32px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.bank-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(145deg, #e53935, #d50000);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 24px rgba(213, 0, 0, 0.3);
+}
+
+.bank-icon i {
+    font-size: 36px;
+    color: white;
+}
+
+.welcome-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.welcome-sub {
+    font-size: 14px;
+    color: #757575;
+}
+
+/* ============ FORM ============ */
+.login-form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 0 24px;
+}
+
+.input-group-modern {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #424242;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    right: 16px;
+    font-size: 16px;
+    color: #bdbdbd;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.modern-input {
+    width: 100%;
+    padding: 16px 48px 16px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: white;
+    color: #1a1a1a;
+    transition: all 0.2s;
+    outline: none;
+    text-align: right;
+}
+
+.modern-input:focus {
+    border-color: #d50000;
+    box-shadow: 0 0 0 4px rgba(213, 0, 0, 0.05);
+}
+
+.modern-input::placeholder {
+    color: #bdbdbd;
+    font-size: 13px;
+}
+
+.toggle-password {
+    position: absolute;
+    left: 16px;
+    font-size: 16px;
+    color: #bdbdbd;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s;
+}
+
+.toggle-password:hover {
+    color: #d50000;
+}
+
+/* ============ FORGOT ============ */
+.forgot-row {
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+.forgot-link {
+    font-size: 13px;
+    color: #d50000;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ============ LOGIN BUTTON ============ */
+.login-btn-modern {
+    width: 100%;
+    padding: 16px;
+    background: #d50000;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(213, 0, 0, 0.25);
+}
+
+.login-btn-modern:active {
+    background: #b71c1c;
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(213, 0, 0, 0.2);
+}
+
+/* ============ FINGERPRINT ============ */
+.fingerprint-section {
+    text-align: center;
+    margin-top: 32px;
+}
+
+.fingerprint-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+    background: white;
+    font-size: 28px;
+    color: #d50000;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.fingerprint-btn:active {
+    background: #ffebee;
+    border-color: #d50000;
+}
+
+.fingerprint-section p {
+    font-size: 12px;
+    color: #757575;
+    margin-top: 8px;
+}
+
+/* ============ FOOTER ============ */
+.login-footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 24px;
+}
+
+.login-footer p {
+    font-size: 14px;
+    color: #757575;
+    margin-bottom: 8px;
+}
+
+.register-link {
+    display: inline-block;
+    padding: 12px 32px;
+    border: 2px solid #d50000;
+    border-radius: 25px;
+    color: #d50000;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.register-link:active {
+    background: #d50000;
+    color: white;
+}
+
+/* ============ HELP ============ */
+.help-section {
+    padding: 16px 24px 32px;
+    text-align: center;
+}
+
+.help-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #757575;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.help-link i {
+    color: #d50000;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 380px) {
+    .login-logo-section {
+        padding: 24px 20px 20px;
+    }
+    
+    .bank-icon {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .welcome-title {
+        font-size: 24px;
+    }
+    
+    .modern-input {
+        padding: 14px 44px 14px 14px;
+    }
+}

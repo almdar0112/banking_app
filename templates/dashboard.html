@@ -1,0 +1,401 @@
+{% extends "base.html" %}
+
+{% block title %}مراد بنك - لوحة التحكم{% endblock %}
+
+{% block content %}
+<style>
+    .bank-app {
+        font-family: 'Cairo', sans-serif;
+        background: #f5f5f5;
+        min-height: 100vh;
+        padding-bottom: 70px;
+    }
+
+    .bank-header {
+        height: 70px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .header-btn {
+        width: 40px;
+        height: 40px;
+        border: none;
+        background: #f5f5f5;
+        border-radius: 50%;
+        font-size: 18px;
+        color: #666;
+        cursor: pointer;
+    }
+
+    .logo-ar {
+        font-size: 22px;
+        font-weight: 800;
+        color: #d50000;
+    }
+
+    .logo-en {
+        font-size: 13px;
+        color: #999;
+    }
+
+    .main-content {
+        padding: 20px 16px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .welcome-box {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .welcome-greeting {
+        font-size: 16px;
+        color: #999;
+        margin-bottom: 4px;
+    }
+
+    .welcome-name {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+
+    .admin-badge {
+        background: #1a1a2e;
+        color: #ffd700;
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    .account-number {
+        font-size: 12px;
+        color: #999;
+        margin-top: 4px;
+    }
+
+    .balance-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .balance-label {
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 4px;
+    }
+
+    .balance-amount {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+
+    .deposit-btn {
+        background: #d50000;
+        color: white;
+        border: none;
+        border-radius: 24px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: 'Cairo', sans-serif;
+        cursor: pointer;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 16px;
+        margin-top: 24px;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .service-card {
+        background: linear-gradient(135deg, #e53935, #d50000);
+        border-radius: 16px;
+        padding: 20px 12px;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        box-shadow: 0 4px 12px rgba(213, 0, 0, 0.25);
+        transition: all 0.2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .service-card:active {
+        transform: scale(0.95);
+    }
+
+    .service-card i {
+        font-size: 24px;
+        background: rgba(255,255,255,0.2);
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .service-card span {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .bottom-links {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .bottom-link {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        text-decoration: none;
+        color: #333;
+        gap: 12px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .bottom-link:last-child {
+        border-bottom: none;
+    }
+
+    .bottom-link i:first-child {
+        font-size: 18px;
+        width: 24px;
+        text-align: center;
+    }
+
+    .bottom-link i:last-child {
+        color: #ccc;
+        font-size: 12px;
+        margin-right: auto;
+    }
+
+    .admin-link {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        text-decoration: none;
+        gap: 12px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 14px;
+        font-weight: 500;
+        background: #1a1a2e;
+    }
+
+    .admin-link i:last-child {
+        color: #ffd700;
+        font-size: 12px;
+        margin-right: auto;
+    }
+
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 65px;
+        background: white;
+        border-top: 1px solid #eee;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-decoration: none;
+        color: #999;
+        font-size: 11px;
+    }
+
+    .nav-item.active {
+        color: #d50000;
+    }
+
+    .nav-item i {
+        font-size: 20px;
+    }
+</style>
+
+<div class="bank-app">
+
+    <!-- HEADER -->
+    <header class="bank-header">
+        <button class="header-btn" onclick="location.href='/logout'">
+            <i class="fas fa-power-off"></i>
+        </button>
+        <div>
+            <span class="logo-ar">مراد بنك</span>
+            <span class="logo-en"> murad bank</span>
+        </div>
+        <button class="header-btn">
+            <i class="fas fa-bell"></i>
+        </button>
+    </header>
+
+    <!-- MAIN -->
+    <div class="main-content">
+        
+        <!-- Welcome -->
+        <div class="welcome-box">
+            <p class="welcome-greeting" id="greetingText">مساء الخير،</p>
+            <h1 class="welcome-name">
+                {{ username }}
+                {% if session.role == 'admin' %}
+                <span class="admin-badge">👑 مدير النظام</span>
+                {% endif %}
+            </h1>
+            <p class="account-number">رقم الحساب: {{ account_number }}</p>
+        </div>
+
+        <!-- Balance -->
+        <div class="balance-card">
+            <div>
+                <p class="balance-label">الرصيد الحالي</p>
+                <p class="balance-amount">{{ "%.2f"|format(balance) }} ج.م</p>
+            </div>
+            <button class="deposit-btn" onclick="location.href='/deposit'">
+                <i class="fas fa-plus"></i> إيداع
+            </button>
+        </div>
+
+        <!-- Services -->
+        <h3 class="section-title">الخدمات المصرفية</h3>
+        <div class="services-grid">
+            <a href="/dashboard" class="service-card">
+                <i class="fas fa-user"></i>
+                <span>تفاصيل الحساب</span>
+            </a>
+            <a href="#" class="service-card">
+                <i class="fas fa-receipt"></i>
+                <span>دفع فواتير</span>
+            </a>
+            <a href="/transfer" class="service-card">
+                <i class="fas fa-exchange-alt"></i>
+                <span>تحويلات</span>
+            </a>
+            <a href="#" class="service-card">
+                <i class="fas fa-credit-card"></i>
+                <span>سحب</span>
+            </a>
+            <a href="#" class="service-card">
+                <i class="fas fa-qrcode"></i>
+                <span>PAY</span>
+            </a>
+            <a href="#" class="service-card">
+                <i class="fas fa-piggy-bank"></i>
+                <span>ودائع</span>
+            </a>
+            <a href="#" class="service-card">
+                <i class="fas fa-user-plus"></i>
+                <span>مستفيدين</span>
+            </a>
+            <a href="/history" class="service-card">
+                <i class="fas fa-history"></i>
+                <span>معاملات</span>
+            </a>
+            <a href="#" class="service-card">
+                <i class="fas fa-id-card"></i>
+                <span>بطاقات</span>
+            </a>
+        </div>
+
+        <!-- Links -->
+        <div class="bottom-links">
+            
+            <!-- زر المدير -->
+            {% if session.role == 'admin' %}
+            <a href="/admin" class="admin-link">
+                <i class="fas fa-crown" style="color: #ffd700; font-size: 18px; width: 24px; text-align: center;"></i>
+                <div>
+                    <span style="color: #ffd700; font-weight: 700;">لوحة تحكم المدير</span>
+                    <br>
+                    <span style="color: #999; font-size: 11px;">إدارة المستخدمين والمعاملات</span>
+                </div>
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            {% endif %}
+            
+            <a href="/change-password" class="bottom-link">
+                <i class="fas fa-shield-alt" style="color: #d50000;"></i>
+                <span>إعدادات الأمان</span>
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a href="/logout" class="bottom-link">
+                <i class="fas fa-sign-out-alt" style="color: #d50000;"></i>
+                <span>تسجيل الخروج</span>
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="/dashboard" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="/transfer" class="nav-item">
+            <i class="fas fa-exchange-alt"></i>
+            <span>تحويل</span>
+        </a>
+        <a href="/history" class="nav-item">
+            <i class="fas fa-history"></i>
+            <span>معاملات</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-headset"></i>
+            <span>مساعدة</span>
+        </a>
+    </nav>
+
+</div>
+
+<script>
+    const hour = new Date().getHours();
+    const g = document.getElementById('greetingText');
+    if (hour < 12) g.textContent = 'صباح الخير،';
+    else g.textContent = 'مساء الخير،';
+</script>
+
+{% endblock %}

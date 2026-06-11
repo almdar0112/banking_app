@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}لوحة تحكم المدير - مراد بنك{% endblock %}
+
+{% block content %}
+<style>
+    .admin-page {
+        font-family: 'Cairo', sans-serif;
+        background: #f5f5f5;
+        min-height: 100vh;
+        direction: rtl;
+    }
+
+    .admin-header {
+        background: #1a1a2e;
+        color: white;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .admin-header h2 {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .back-btn {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: 'Cairo', sans-serif;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .admin-content {
+        padding: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .stat-card i {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+        font-weight: 800;
+        color: #1a1a1a;
+    }
+
+    .stat-label {
+        font-size: 12px;
+        color: #999;
+        margin-top: 4px;
+    }
+
+    .users-table {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .table-header {
+        background: #1a1a2e;
+        color: white;
+        padding: 16px 20px;
+        font-weight: 700;
+    }
+
+    .table-row {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr 1fr 80px;
+        padding: 14px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        align-items: center;
+        font-size: 13px;
+    }
+
+    .table-row:last-child {
+        border-bottom: none;
+    }
+
+    .badge {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .badge-admin {
+        background: #ffebee;
+        color: #d50000;
+    }
+
+    .badge-user {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .delete-btn {
+        background: #ff1744;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 11px;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .table-row {
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+    }
+</style>
+
+<div class="admin-page">
+    
+    <header class="admin-header">
+        <h2>👑 لوحة تحكم المدير - مراد بنك</h2>
+        <a href="/dashboard" class="back-btn">← عودة للوحة التحكم</a>
+    </header>
+
+    <div class="admin-content">
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-users" style="color: #2196f3;"></i>
+                <div class="stat-value">{{ total_users }}</div>
+                <div class="stat-label">مستخدم</div>
+            </div>
+            
+            <div class="stat-card">
+                <i class="fas fa-money-bill-wave" style="color: #00c853;"></i>
+                <div class="stat-value">{{ "%.0f"|format(total_balance) }}</div>
+                <div class="stat-label">ج.م إجمالي الأرصدة</div>
+            </div>
+            
+            <div class="stat-card">
+                <i class="fas fa-exchange-alt" style="color: #ff9100;"></i>
+                <div class="stat-value">{{ total_transactions }}</div>
+                <div class="stat-label">معاملة</div>
+            </div>
+            
+            <div class="stat-card">
+                <i class="fas fa-wallet" style="color: #9c27b0;"></i>
+                <div class="stat-value">{{ "%.0f"|format(total_balance / total_users) if total_users > 0 else 0 }}</div>
+                <div class="stat-label">متوسط الرصيد</div>
+            </div>
+        </div>
+
+        <div class="users-table">
+            <div class="table-header">👥 قائمة المستخدمين</div>
+            
+            <div class="table-row" style="font-weight: 700; background: #fafafa;">
+                <span>رقم الحساب</span>
+                <span>الاسم</span>
+                <span>الرصيد</span>
+                <span>الدور</span>
+                <span>حذف</span>
+            </div>
+            
+            {% for user in users %}
+            <div class="table-row">
+                <span>{{ user.account }}</span>
+                <span>{{ user.username }}</span>
+                <span>{{ "%.2f"|format(user.balance) }} ج.م</span>
+                <span>
+                    <span class="badge badge-{{ 'admin' if user.role == 'admin' else 'user' }}">
+                        {{ 'مدير' if user.role == 'admin' else 'مستخدم' }}
+                    </span>
+                </span>
+                <span>
+                    {% if user.role != 'admin' %}
+                    <button class="delete-btn" onclick="deleteUser('{{ user.account }}')">
+                        <i class="fas fa-trash"></i> حذف
+                    </button>
+                    {% endif %}
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function deleteUser(account) {
+        if (confirm('هل أنت متأكد من حذف الحساب ' + account + '؟')) {
+            window.location.href = '/admin/delete/' + account;
+        }
+    }
+</script>
+{% endblock %}

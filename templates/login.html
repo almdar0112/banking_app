@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}مراد بنك - تسجيل الدخول{% endblock %}
+
+{% block content %}
+<div class="murad bank-login">
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="login-header">
+        <div class="header-logo">
+            <span class="logo-ar">مراد بنك</span>
+            <span class="logo-en">murad bank</span>
+        </div>
+    </header>
+
+    <!-- ==================== LOGO SECTION ==================== -->
+    <div class="login-logo-section">
+        <div class="bank-icon">
+            <i class="fas fa-university"></i>
+        </div>
+        <h1 class="welcome-title">مرحباً بك</h1>
+        <p class="welcome-sub">سجل دخولك للوصول لحسابك</p>
+    </div>
+
+    <!-- ==================== FORM ==================== -->
+    <div class="login-form-container">
+        <form method="POST" action="/login">
+            
+            <!-- رقم الحساب -->
+            <div class="input-group-modern">
+                <label class="input-label">رقم الحساب</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-credit-card input-icon"></i>
+                    <input type="text" 
+                           name="account_number" 
+                           class="modern-input" 
+                           placeholder="أدخل رقم الحساب المكون من 7 أرقام"
+                           pattern="[0-9]{7}"
+                           inputmode="numeric"
+                           maxlength="7"
+                           required>
+                </div>
+            </div>
+
+            <!-- كلمة المرور -->
+            <div class="input-group-modern">
+                <label class="input-label">كلمة المرور</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" 
+                           name="password" 
+                           class="modern-input" 
+                           id="passwordInput"
+                           placeholder="أدخل كلمة المرور"
+                           required>
+                    <i class="fas fa-eye toggle-password" id="togglePassword" onclick="togglePass()"></i>
+                </div>
+            </div>
+
+            <!-- نسيت كلمة المرور -->
+            <div class="forgot-row">
+                <a href="#" class="forgot-link">نسيت كلمة المرور؟</a>
+            </div>
+
+            <!-- زر الدخول -->
+            <button type="submit" class="login-btn-modern">
+                <span>تسجيل الدخول</span>
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+        </form>
+
+        <!-- Fingerprint -->
+        <div class="fingerprint-section">
+            <button class="fingerprint-btn" onclick="fingerprintLogin()">
+                <i class="fas fa-fingerprint"></i>
+            </button>
+            <p>تسجيل الدخول بالبصمة</p>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="login-footer">
+        <p>ليس لديك حساب؟</p>
+        <a href="/register" class="register-link">فتح حساب جديد</a>
+    </div>
+
+    <!-- ==================== HELP ==================== -->
+    <div class="help-section">
+        <a href="#" class="help-link">
+            <i class="fas fa-headset"></i>
+            <span>تواصل معنا</span>
+        </a>
+    </div>
+
+</div>
+
+<script>
+    // إظهار/إخفاء كلمة المرور
+    function togglePass() {
+        const input = document.getElementById('passwordInput');
+        const icon = document.getElementById('togglePassword');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'fas fa-eye-slash toggle-password';
+        } else {
+            input.type = 'password';
+            icon.className = 'fas fa-eye toggle-password';
+        }
+    }
+
+    // تسجيل بالبصمة (محاكاة)
+    function fingerprintLogin() {
+        alert('خاصية البصمة غير مفعلة حالياً');
+    }
+
+    // إظهار رقم الحساب كأرقام فقط
+    document.querySelector('input[name="account_number"]').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+</script>
+
+{% endblock %}

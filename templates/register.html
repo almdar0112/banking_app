@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}مراد بنك - فتح حساب{% endblock %}
+
+{% block content %}
+<div class="murad bank-login">
+
+    <!-- HEADER -->
+    <header class="login-header">
+        <div class="header-logo">
+            <span class="logo-ar">مراد بنك</span>
+            <span class="logo-en">murad bank</span>
+        </div>
+    </header>
+
+    <!-- FORM -->
+    <div class="login-logo-section">
+        <div class="bank-icon">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <h1 class="welcome-title">فتح حساب جديد</h1>
+        <p class="welcome-sub">أنشئ حسابك المصرفي الآن</p>
+    </div>
+
+    <div class="login-form-container">
+        <form method="POST" action="/register">
+            
+            <!-- الاسم -->
+            <div class="input-group-modern">
+                <label class="input-label">الاسم الكامل</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" name="username" class="modern-input" 
+                           placeholder="أدخل اسمك الكامل" required>
+                </div>
+            </div>
+
+            <!-- الإيميل -->
+            <div class="input-group-modern">
+                <label class="input-label">البريد الإلكتروني</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" name="email" class="modern-input" 
+                           placeholder="example@gmail.com">
+                </div>
+                <small style="color: #999; font-size: 11px; margin-top: 4px; display: block;">
+                    اختياري - لتلقي إشعارات المعاملات
+                </small>
+            </div>
+            <!-- رقم الهاتف -->
+            <div class="input-group-modern">
+            	<label class="input-label">رقم الهاتف</label>
+            	<div class="input-wrapper" style="direction: ltr;">
+            		<span style="padding: 16px 12px; background: #f5f5f5; border-radius: 0 12px 12px 0; font-size: 14px; color: #666;">+249</span>
+            		<input type="tel" name="phone" class="modern-input" 
+               placeholder="9XX XXX XXX" 
+               style="border-radius: 12px 0 0 12px; text-align: left; direction: ltr;">
+               </div>
+               <small class="text-muted">مثال: 912 345 678</small>
+           </div>
+
+            <!-- كلمة المرور -->
+            <div class="input-group-modern">
+                <label class="input-label">كلمة المرور</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" name="password" class="modern-input" 
+                           placeholder="6 أحرف على الأقل" minlength="6" required>
+                </div>
+            </div>
+
+            <!-- تأكيد كلمة المرور -->
+            <div class="input-group-modern">
+                <label class="input-label">تأكيد كلمة المرور</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-check-circle input-icon"></i>
+                    <input type="password" name="confirm_password" class="modern-input" 
+                           placeholder="أعد كتابة كلمة المرور" minlength="6" required>
+                </div>
+            </div>
+
+            <!-- شروط -->
+            <div style="margin-bottom: 24px; font-size: 12px; color: #757575; text-align: center;">
+                بالضغط على "إنشاء الحساب" أنت توافق على 
+                <a href="#" style="color: #d50000;">الشروط والأحكام</a>
+            </div>
+
+            <!-- زر الإنشاء -->
+            <button type="submit" class="login-btn-modern">
+                <span>إنشاء الحساب</span>
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="login-footer">
+        <p>لديك حساب بالفعل؟</p>
+        <a href="/login" class="register-link">تسجيل الدخول</a>
+    </div>
+
+</div>
+{% endblock %}

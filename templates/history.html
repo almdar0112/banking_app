@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}مراد بنك - المعاملات{% endblock %}
+
+{% block content %}
+<div class="murad bank-login">
+
+    <!-- HEADER -->
+    <header class="login-header">
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+        <div class="header-logo">
+            <span class="logo-ar">المعاملات السابقة</span>
+        </div>
+        <div style="width: 40px;"></div>
+    </header>
+
+    <div style="padding: 16px; width: 100%; max-width: 500px; margin: 0 auto;">
+        
+        {% if history %}
+            {% for item in history %}
+            <div class="transaction-item">
+                <div class="transaction-icon 
+                    {% if 'إيداع' in item or 'استلام' in item %}deposit
+                    {% else %}transfer{% endif %}">
+                    {% if 'إيداع' in item or 'استلام' in item %}
+                        <i class="fas fa-arrow-down"></i>
+                    {% else %}
+                        <i class="fas fa-arrow-up"></i>
+                    {% endif %}
+                </div>
+                <div class="transaction-info">
+                    <span class="transaction-title">{{ item }}</span>
+                </div>
+                <i class="fas fa-chevron-left" style="color: #ccc;"></i>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div style="text-align: center; padding: 60px 20px;">
+                <i class="fas fa-inbox" style="font-size: 64px; color: #e0e0e0;"></i>
+                <p style="color: #999; margin-top: 16px;">لا توجد معاملات حتى الآن</p>
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<style>
+    .transaction-item {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 16px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        gap: 12px;
+    }
+    
+    .transaction-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+    
+    .transaction-icon.deposit {
+        background: #e8f5e9;
+        color: #00c853;
+    }
+    
+    .transaction-icon.transfer {
+        background: #ffebee;
+        color: #d50000;
+    }
+    
+    .transaction-info {
+        flex: 1;
+    }
+    
+    .transaction-title {
+        font-size: 13px;
+        color: #333;
+    }
+</style>
+
+{% endblock %}
